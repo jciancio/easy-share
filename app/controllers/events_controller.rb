@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, :subscription_required, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
   # GET /events
@@ -76,5 +76,9 @@ class EventsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
       params.require(:event).permit(:name, :description, :creator)
+    end
+
+    def subscription_required
+      redirect_to authenticated_root_path unless current_user.events.include?(@event)
     end
 end
