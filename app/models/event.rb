@@ -6,7 +6,7 @@ class Event < ApplicationRecord
     all.includes(:users).select{ |event| event.users.include?(current_user) }
   end
 
-  def created_by
-    users.find(creator)
+  def created_by(current_user)
+    current_user.id == creator ? "me" : users.find(creator)
   end
 end
