@@ -1,0 +1,9 @@
+<h1>Add a Friend</h1>
+
+<ul>
+<% @users.each do |user| %>
+  <% unless user.events.include?(@event) %>
+    <li><%= link_to user, event_add_user_path(@event, user), method: :post %></li>
+  <% end %>
+<% end %>
+</ul>
