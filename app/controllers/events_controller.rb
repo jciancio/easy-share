@@ -22,10 +22,6 @@ class EventsController < ApplicationController
   def edit
   end
 
-  def save
-    @event = Event.find(params[:event_id])
-  end
-
   # POST /events
   # POST /events.json
   def create
@@ -34,7 +30,8 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to event_save_path(@event), notice: 'Click save to confirm' }
+        @event.user_events.where(user_id: current_user.id).first_or_create
+        format.html { redirect_to @event, notice: 'Event created!' }
         format.json { render :show, status: :created, location: @event }
       else
         format.html { render :new }

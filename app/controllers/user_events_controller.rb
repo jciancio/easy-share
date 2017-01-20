@@ -1,10 +1,11 @@
 class UserEventsController < ApplicationController
   before_action :authenticate_user!, :set_event
 
-  def create
-    @user_event = @event.user_events.where(user_id: current_user.id).first_or_create
-    redirect_to @event
-  end
+  # should not be used
+  # def create
+  #   @user_event = @event.user_events.where(user_id: current_user.id).first_or_create
+  #   redirect_to @event
+  # end
 
   def choose
     @users = User.all.reject{ |user| user == current_user }
