@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'photos/create'
+
+  get 'photos/edit'
+
+  get 'photos/destroy'
+
   devise_for :users
 
   devise_scope :user do
@@ -12,6 +18,7 @@ Rails.application.routes.draw do
   end
 
   resources :events do
+    resources :photos
     get 'choose' => 'user_events#choose', as: :choose_user
     post 'add/:user_id' => 'user_events#add', as: :add_user
   end
